@@ -1,1 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>/M-30n</title>
+<meta name="description" content="/M-30n: developer of browser games and web projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --panel: #121214;
+    --line: #26262b;
+    --text: #f4f4f5;
+    --muted: #9a9aa3;
+    --red: #e5252d;
+    --red-dark: #b81a21;
+  }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', 'Segoe UI', Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    background-image: radial-gradient(ellipse 60% 40% at 15% -5%, rgba(229, 37, 45, 0.28), transparent 70%);
+    background-repeat: no-repeat;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 6px; }
+
+  .wrap { width: min(1000px, 100% - 40px); margin: 0 auto; }
+
+  /* hero */
+  .hero { display: flex; align-items: center; gap: 36px; padding: 80px 0 64px; }
+  .avatar { flex: none; width: 150px; height: 150px; border-radius: 50%; overflow: hidden; background: var(--red); border: 3px solid var(--line); }
+  .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .eyebrow { display: inline-block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(2.4rem, 7vw, 4.2rem); line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 14px; }
+  h1 span { color: var(--red); }
+  .lede { font-size: 1.15rem; color: var(--muted); max-width: 50ch; margin-bottom: 26px; }
+
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 13px 22px; border-radius: 8px; font-weight: 700; transition: background 0.15s, border-color 0.15s; }
+  .btn-primary { background: var(--red); color: #fff; }
+  .btn-primary:hover { background: var(--red-dark); }
+  .btn-ghost { border: 1px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--red); }
+
+  /* sections */
+  section { padding: 52px 0; border-top: 1px solid var(--line); }
+  h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.7rem; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .about { color: var(--muted); font-size: 1.08rem; max-width: 62ch; }
+
+  .card { display: flex; flex-direction: column; gap: 12px; padding: 28px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; transition: border-color 0.15s, transform 0.15s; }
+  a.card:hover, a.card:focus-visible { border-color: var(--red); transform: translateY(-3px); }
+  .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; letter-spacing: -0.01em; }
+  .card p { color: var(--muted); }
+  .tag { align-self: flex-start; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); border: 1px solid rgba(229, 37, 45, 0.4); border-radius: 999px; padding: 3px 10px; }
+  .arrow { font-weight: 700; }
+  a.card:hover .arrow { color: var(--red); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .chip { font-size: 0.9rem; font-weight: 500; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; transition: border-color 0.15s, color 0.15s; }
+  a.chip:hover, a.chip:focus-visible { border-color: var(--red); color: var(--red); }
+  .chips.tech .chip { color: var(--muted); }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 44px; color: var(--muted); font-size: 0.9rem; }
+
+  @media (max-width: 640px) {
+    .hero { flex-direction: column; align-items: flex-start; gap: 24px; padding: 48px 0 44px; }
+    .avatar { width: 110px; height: 110px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn, .card, .chip { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="avatar"><img src="https://github.com/M-30n.png?size=300" alt="M-30n profile picture" onerror="this.remove()"></div>
+      <div>
+        <span class="eyebrow">Developer</span>
+        <h1><span>/</span>M-30n</h1>
+        <p class="lede">I build browser games and web projects that run instantly: no downloads, no sign-ups.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="#work" target="_self">See my work</a>
+          <a class="btn btn-ghost" href="https://github.com/M-30n" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <section id="about">
+      <h2>About</h2>
+      <p class="about">I'm part of ma3on, a small group making free browser games and web projects. I put together game hubs, get classic games running in the browser, and design the pages around them so they feel clean and easy to use on any device.</p>
+    </section>
+
+    <section id="work">
+      <h2>Work</h2>
+      <a class="card" href="https://m-30n.github.io/" target="_blank" rel="noopener">
+        <span class="tag">Games</span>
+        <h3>Football Games Portal</h3>
+        <p>A hub of football games you can play right in your browser, with a controls guide and full-screen mode for the emulated titles.</p>
+        <div class="chips">
+          <span class="chip">Retro Bowl College</span>
+          <span class="chip">Retro Bowl</span>
+          <span class="chip">Madden NFL 07</span>
+          <span class="chip">Madden NFL 06</span>
+          <span class="chip">Axis Football League</span>
+        </div>
+        <span class="arrow">Open portal &rarr;</span>
+      </a>
+    </section>
+
+    <section id="tools">
+      <h2>Built with</h2>
+      <div class="chips tech">
+        <span class="chip">HTML</span>
+        <span class="chip">CSS</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">EmulatorJS</span>
+        <span class="chip">Ruffle</span>
+        <span class="chip">GitHub Pages</span>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Get in touch</h2>
+      <p class="about" style="margin-bottom:22px">The best way to reach me is through GitHub.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://github.com/M-30n" target="_blank" rel="noopener">github.com/M-30n</a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="wrap">&copy; <span id="year">2026</span> /M-30n &middot; part of ma3on</div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
