@@ -8,6 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var s = JSON.parse(localStorage.getItem('ma3on-settings') || '{}');
+      if (['red', 'blue', 'purple'].indexOf(s.accent) > -1) document.documentElement.setAttribute('data-accent', s.accent);
+    } catch (err) {}
+  })();
+</script>
 <style>
   :root {
     --bg: #0a0a0b;
@@ -15,8 +23,10 @@
     --line: #26262b;
     --text: #f4f4f5;
     --muted: #9a9aa3;
-    --red: #e5252d;
-    --red-dark: #b81a21;
+    --accent: #e5252d;
+    --accent-dark: #b81a21;
+    --glow: rgba(229, 37, 45, 0.28);
+    --accent-line: rgba(229, 37, 45, 0.4);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,35 +37,35 @@
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
-    background-image: radial-gradient(ellipse 60% 40% at 85% -5%, rgba(229, 37, 45, 0.28), transparent 70%);
+    background-image: radial-gradient(ellipse 60% 40% at 85% -5%, var(--glow), transparent 70%);
     background-repeat: no-repeat;
   }
 
   a { color: inherit; text-decoration: none; }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 6px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 
   .wrap { width: min(1080px, 100% - 40px); margin: 0 auto; }
 
   /* nav */
   nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; }
   .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: -0.02em; }
-  .logo span { color: var(--red); }
+  .logo span { color: var(--accent); }
   .nav-links { display: flex; gap: 28px; font-weight: 500; font-size: 0.95rem; color: var(--muted); }
   .nav-links a:hover { color: var(--text); }
 
   /* hero */
   .hero { padding: 96px 0 88px; max-width: 760px; }
-  .eyebrow { display: inline-block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .eyebrow { display: inline-block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
   h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(2.6rem, 8vw, 5rem); line-height: 1.02; letter-spacing: -0.035em; margin-bottom: 24px; }
-  h1 em { font-style: normal; color: var(--red); }
+  h1 em { font-style: normal; color: var(--accent); }
   .lede { font-size: 1.2rem; color: var(--muted); max-width: 52ch; margin-bottom: 36px; }
 
   .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn { display: inline-block; padding: 14px 24px; border-radius: 8px; font-weight: 700; transition: background 0.15s, border-color 0.15s, transform 0.15s; }
-  .btn-primary { background: var(--red); color: #fff; }
-  .btn-primary:hover { background: var(--red-dark); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dark); }
   .btn-ghost { border: 1px solid var(--line); color: var(--text); }
-  .btn-ghost:hover { border-color: var(--red); }
+  .btn-ghost:hover { border-color: var(--accent); }
 
   /* sections */
   section { padding: 56px 0; border-top: 1px solid var(--line); }
@@ -73,18 +83,18 @@
     border-radius: 14px;
     transition: border-color 0.15s, transform 0.15s;
   }
-  a.card:hover, a.card:focus-visible { border-color: var(--red); transform: translateY(-3px); }
+  a.card:hover, a.card:focus-visible { border-color: var(--accent); transform: translateY(-3px); }
   .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; letter-spacing: -0.01em; }
   .card p { color: var(--muted); font-size: 0.98rem; }
   .card.placeholder { border-style: dashed; background: transparent; justify-content: center; }
   .card.placeholder h3 { color: var(--muted); }
-  .tag { align-self: flex-start; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); border: 1px solid rgba(229, 37, 45, 0.4); border-radius: 999px; padding: 3px 10px; }
+  .tag { align-self: flex-start; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent-line); border-radius: 999px; padding: 3px 10px; }
   .arrow { margin-top: auto; padding-top: 8px; font-weight: 700; color: var(--text); }
-  a.card:hover .arrow { color: var(--red); }
+  a.card:hover .arrow { color: var(--accent); }
 
   /* team */
   .member { flex-direction: row; align-items: center; gap: 18px; }
-  .avatar { position: relative; flex: none; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: var(--red); display: grid; place-items: center; font: 700 1.4rem 'Space Grotesk', sans-serif; }
+  .avatar { position: relative; flex: none; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: var(--accent); display: grid; place-items: center; font: 700 1.4rem 'Space Grotesk', sans-serif; }
   .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .handle { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; }
   .role { color: var(--muted); font-size: 0.95rem; }
@@ -96,9 +106,42 @@
   .viewer-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--line); }
   .viewer-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
   .viewer-close { font: 700 0.95rem 'DM Sans', sans-serif; color: var(--text); background: none; border: 1px solid var(--line); border-radius: 8px; padding: 9px 16px; cursor: pointer; }
-  .viewer-close:hover { border-color: var(--red); }
+  .viewer-close:hover { border-color: var(--accent); }
   .viewer iframe { flex: 1; width: 100%; border: 0; background: var(--bg); }
   body.viewer-open { overflow: hidden; }
+
+
+  /* accent themes */
+  html[data-accent="blue"]   { --accent: #2f7bff; --accent-dark: #1f5fd1; --glow: rgba(47, 123, 255, 0.30);  --accent-line: rgba(47, 123, 255, 0.45); }
+  html[data-accent="purple"] { --accent: #9b5cf6; --accent-dark: #7b3fd6; --glow: rgba(155, 92, 246, 0.30);  --accent-line: rgba(155, 92, 246, 0.45); }
+
+  /* settings */
+  .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; transition: color 0.15s, border-color 0.15s; }
+  .icon-btn:hover, .icon-btn:focus-visible { color: var(--text); border-color: var(--accent); }
+  .icon-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-btn.fixed { position: fixed; top: 16px; right: 16px; z-index: 20; background: var(--bg); }
+
+  dialog.settings { margin: auto; width: min(440px, calc(100% - 32px)); padding: 26px; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6); }
+  dialog.settings::backdrop { background: rgba(0, 0, 0, 0.7); }
+  .settings h2 { font-size: 1.3rem; margin-bottom: 14px; }
+  .settings-close { position: absolute; top: 12px; right: 14px; font-size: 1.6rem; line-height: 1; color: var(--muted); background: none; border: 0; cursor: pointer; padding: 4px 8px; }
+  .settings-close:hover { color: var(--text); }
+  .opt { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+  .opt.col { flex-direction: column; align-items: flex-start; }
+  .opt strong { display: block; font-weight: 700; }
+  .opt small { display: block; color: var(--muted); font-size: 0.88rem; line-height: 1.4; margin-top: 2px; }
+  .switch { -webkit-appearance: none; appearance: none; flex: none; width: 46px; height: 26px; border-radius: 999px; background: #34343b; position: relative; cursor: pointer; transition: background 0.15s; }
+  .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform 0.15s; }
+  .switch:checked { background: var(--accent); }
+  .switch:checked::after { transform: translateX(20px); }
+  .switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .swatches { display: flex; gap: 18px; }
+  .sw { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; font-size: 0.85rem; color: var(--muted); }
+  .sw input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .sw .dot { width: 36px; height: 36px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 2px var(--line); transition: box-shadow 0.15s; }
+  .sw input:checked + .dot { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text); }
+  .sw input:focus-visible + .dot { outline: 2px solid var(--text); outline-offset: 5px; }
+  @media (prefers-reduced-motion: reduce) { .switch, .switch::after, .icon-btn { transition: none; } }
 
   footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--muted); font-size: 0.9rem; }
 
@@ -120,7 +163,7 @@
         <a href="#projects">Projects</a>
         <a href="#team">Team</a>
         <a href="https://github.com/ma3on">GitHub</a>
-      </div>
+        <button class="icon-btn" id="open-settings" type="button" aria-label="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></button>      </div>
     </nav>
 
     <header class="hero">
@@ -139,7 +182,7 @@
         <span class="section-sub">Things we've built</span>
       </div>
       <div class="grid">
-        <a class="card" href="https://m-30n.github.io/">
+        <a class="card" href="https://m-30n.github.io/" data-cloak>
           <span class="tag">Games</span>
           <h3>Football Games Portal</h3>
           <p>A collection of football games you can play right in your browser, including Retro Bowl, Madden and Axis Football League.</p>
@@ -173,6 +216,22 @@
   <footer>
     <div class="wrap">&copy; <span id="year">2026</span> ma3on. All rights reserved.</div>
   </footer>
+  <dialog class="settings" id="settings" aria-labelledby="settings-title">
+    <button class="settings-close" id="settings-close" type="button" aria-label="Close settings">&times;</button>
+    <h2 id="settings-title">Settings</h2>
+    <label class="opt">
+      <span><strong>Open links in about:blank</strong><small>Opens the game portal in a new about:blank tab instead of leaving this page.</small></span>
+      <input type="checkbox" class="switch" id="opt-blank" role="switch">
+    </label>
+    <div class="opt col" role="radiogroup" aria-labelledby="acc-label">
+      <span id="acc-label"><strong>Accent color</strong><small>Changes the highlight color across the site.</small></span>
+      <div class="swatches">
+        <label class="sw"><input type="radio" name="accent" value="red"><span class="dot" style="--c:#e5252d"></span>Red</label>
+        <label class="sw"><input type="radio" name="accent" value="blue"><span class="dot" style="--c:#2f7bff"></span>Blue</label>
+        <label class="sw"><input type="radio" name="accent" value="purple"><span class="dot" style="--c:#9b5cf6"></span>Purple</label>
+      </div>
+    </div>
+  </dialog>
   <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Portfolio" hidden>
     <div class="viewer-bar">
       <span class="viewer-title">/M-30n</span>
@@ -218,6 +277,65 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && viewer.classList.contains('open')) closeBtn.click();
     });
+  })();
+  </script>
+  <script>
+  (function () {
+    var KEY = 'ma3on-settings', ACCENTS = ['red', 'blue', 'purple'];
+    var root = document.documentElement;
+    function load() {
+      var s = {};
+      try { s = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (err) {}
+      return { blank: !!s.blank, accent: ACCENTS.indexOf(s.accent) > -1 ? s.accent : 'red' };
+    }
+    function save() { try { localStorage.setItem(KEY, JSON.stringify(settings)); } catch (err) {} }
+    var settings = load();
+    var dlg = document.getElementById('settings');
+    var blankBox = document.getElementById('opt-blank');
+    var radios = Array.prototype.slice.call(document.querySelectorAll('input[name="accent"]'));
+    function apply() {
+      root.setAttribute('data-accent', settings.accent);
+      blankBox.checked = settings.blank;
+      radios.forEach(function (r) { r.checked = r.value === settings.accent; });
+    }
+    apply();
+    document.getElementById('open-settings').addEventListener('click', function () { dlg.showModal(); });
+    document.getElementById('settings-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    blankBox.addEventListener('change', function () { settings.blank = blankBox.checked; save(); });
+    radios.forEach(function (r) {
+      r.addEventListener('change', function () { if (r.checked) { settings.accent = r.value; save(); apply(); } });
+    });
+    // keep the main page and the portfolio viewer in sync
+    window.addEventListener('storage', function (e) { if (e.key === KEY) { settings = load(); apply(); } });
+
+  function openCloaked(url) {
+    var w = window.open('about:blank', '_blank');
+    if (!w) return false;
+    try {
+      var d = w.document;
+      d.title = document.title;
+      d.body.style.cssText = 'margin:0;background:#000';
+      var f = d.createElement('iframe');
+      f.src = url;
+      f.setAttribute('allowfullscreen', '');
+      f.allow = 'fullscreen; gamepad; autoplay';
+      f.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:0';
+      d.body.appendChild(f);
+    } catch (err) { w.location.href = url; }
+    return true;
+  }
+  function wireCloak(selector, isOn) {
+    Array.prototype.forEach.call(document.querySelectorAll(selector), function (a) {
+      a.addEventListener('click', function (e) {
+        if (!isOn() || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        var url = new URL(a.getAttribute('href'), location.href).href;
+        if (!openCloaked(url)) location.href = url;
+      });
+    });
+  }
+    wireCloak('a[data-cloak]', function () { return settings.blank; });
   })();
   </script>
 </body>
