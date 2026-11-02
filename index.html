@@ -1,317 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ma3on</title>
-    <meta name="description" content="ma3on: browser games and web projects.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0a0a0b;
-            --panel: #121214;
-            --line: #26262b;
-            --text: #f4f4f5;
-            --muted: #9a9aa3;
-            --red: #e5252d;
-            --red-dark: #b81a21;
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: "DM Sans", "Segoe UI", Tahoma, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            background-image: radial-gradient(ellipse 60% 40% at 85% -5%, rgba(229, 37, 45, 0.28), transparent 70%);
-            background-repeat: no-repeat;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        a:focus-visible, button:focus-visible {
-            outline: 2px solid var(--red);
-            outline-offset: 3px;
-            border-radius: 6px;
-        }
-        .wrap {
-            width: min(1080px, 100% - 40px);
-            margin: 0 auto;
-        }
-        /* nav */
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 24px 0;
-        }
-        .logo {
-            font-family: "Space Grotesk", sans-serif;
-            font-weight: 700;
-            font-size: 1.4rem;
-            letter-spacing: -0.02em;
-        }
-        .logo span {
-            color: var(--red);
-        }
-        .nav-links {
-            display: flex;
-            gap: 28px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: var(--muted);
-        }
-        .nav-links a:hover {
-            color: var(--text);
-        }
-        /* hero */
-        .hero {
-            padding: 96px 0 88px;
-            max-width: 760px;
-        }
-        .eyebrow {
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--red);
-            margin-bottom: 20px;
-        }
-        h1 {
-            font-family: "Space Grotesk", sans-serif;
-            font-weight: 700;
-            font-size: clamp(2.6rem, 8vw, 5rem);
-            line-height: 1.02;
-            letter-spacing: -0.035em;
-            margin-bottom: 24px;
-        }
-        h1 em {
-            font-style: normal;
-            color: var(--red);
-        }
-        .lede {
-            font-size: 1.2rem;
-            color: var(--muted);
-            max-width: 52ch;
-            margin-bottom: 36px;
-        }
-        .btn-row {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-        .btn {
-            display: inline-block;
-            padding: 14px 24px;
-            border-radius: 8px;
-            font-weight: 700;
-            transition: background 0.15s, border-color 0.15s, transform 0.15s;
-        }
-        .btn-primary {
-            background: var(--red);
-            color: #fff;
-        }
-        .btn-primary:hover {
-            background: var(--red-dark);
-        }
-        .btn-ghost {
-            border: 1px solid var(--line);
-            color: var(--text);
-        }
-        .btn-ghost:hover {
-            border-color: var(--red);
-        }
-        /* sections */
-        section {
-            padding: 56px 0;
-            border-top: 1px solid var(--line);
-        }
-        .section-head {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            margin-bottom: 28px;
-        }
-        h2 {
-            font-family: "Space Grotesk", sans-serif;
-            font-weight: 700;
-            font-size: 1.8rem;
-            letter-spacing: -0.02em;
-        }
-        .section-sub {
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding: 26px;
-            background: var(--panel);
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            transition: border-color 0.15s, transform 0.15s;
-        }
-        a.card:hover, a.card:focus-visible {
-            border-color: var(--red);
-            transform: translateY(-3px);
-        }
-        .card h3 {
-            font-family: "Space Grotesk", sans-serif;
-            font-size: 1.25rem;
-            letter-spacing: -0.01em;
-        }
-        .card p {
-            color: var(--muted);
-            font-size: 0.98rem;
-        }
-        .tag {
-            align-self: flex-start;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--red);
-            border: 1px solid rgba(229, 37, 45, 0.4);
-            border-radius: 999px;
-            padding: 3px 10px;
-        }
-        .arrow {
-            margin-top: auto;
-            padding-top: 8px;
-            font-weight: 700;
-            color: var(--text);
-        }
-        a.card:hover .arrow {
-            color: var(--red);
-        }
-        /* team */
-        .member {
-            flex-direction: row;
-            align-items: center;
-            gap: 18px;
-        }
-        .avatar {
-            position: relative;
-            flex: none;
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: var(--red);
-            display: grid;
-            place-items: center;
-            font-family: "Space Grotesk", sans-serif;
-            font-weight: 700;
-            font-size: 1.4rem;
-        }
-        .avatar img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .handle {
-            font-family: "Space Grotesk", sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-        .role {
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-        footer {
-            border-top: 1px solid var(--line);
-            padding: 32px 0 48px;
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-        @media (max-width: 560px) {
-            .nav-links {
-                gap: 18px;
-            }
-            .hero {
-                padding: 56px 0 56px;
-            }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-            .btn, .card {
-                transition: none;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ma3on</title>
+<meta name="description" content="ma3on: browser games and web projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --panel: #121214;
+    --line: #26262b;
+    --text: #f4f4f5;
+    --muted: #9a9aa3;
+    --red: #e5252d;
+    --red-dark: #b81a21;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', 'Segoe UI', Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    background-image: radial-gradient(ellipse 60% 40% at 85% -5%, rgba(229, 37, 45, 0.28), transparent 70%);
+    background-repeat: no-repeat;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 6px; }
+
+  .wrap { width: min(1080px, 100% - 40px); margin: 0 auto; }
+
+  /* nav */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; }
+  .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: -0.02em; }
+  .logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 28px; font-weight: 500; font-size: 0.95rem; color: var(--muted); }
+  .nav-links a:hover { color: var(--text); }
+
+  /* hero */
+  .hero { padding: 96px 0 88px; max-width: 760px; }
+  .eyebrow { display: inline-block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(2.6rem, 8vw, 5rem); line-height: 1.02; letter-spacing: -0.035em; margin-bottom: 24px; }
+  h1 em { font-style: normal; color: var(--red); }
+  .lede { font-size: 1.2rem; color: var(--muted); max-width: 52ch; margin-bottom: 36px; }
+
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 14px 24px; border-radius: 8px; font-weight: 700; transition: background 0.15s, border-color 0.15s, transform 0.15s; }
+  .btn-primary { background: var(--red); color: #fff; }
+  .btn-primary:hover { background: var(--red-dark); }
+  .btn-ghost { border: 1px solid var(--line); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--red); }
+
+  /* sections */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
+  h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; letter-spacing: -0.02em; }
+  .section-sub { color: var(--muted); font-size: 0.95rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+
+  .card {
+    display: flex; flex-direction: column; gap: 10px;
+    padding: 26px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  a.card:hover, a.card:focus-visible { border-color: var(--red); transform: translateY(-3px); }
+  .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; letter-spacing: -0.01em; }
+  .card p { color: var(--muted); font-size: 0.98rem; }
+  .card.placeholder { border-style: dashed; background: transparent; justify-content: center; }
+  .card.placeholder h3 { color: var(--muted); }
+  .tag { align-self: flex-start; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); border: 1px solid rgba(229, 37, 45, 0.4); border-radius: 999px; padding: 3px 10px; }
+  .arrow { margin-top: auto; padding-top: 8px; font-weight: 700; color: var(--text); }
+  a.card:hover .arrow { color: var(--red); }
+
+  /* team */
+  .member { flex-direction: row; align-items: center; gap: 18px; }
+  .avatar { position: relative; flex: none; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: var(--red); display: grid; place-items: center; font: 700 1.4rem 'Space Grotesk', sans-serif; }
+  .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .handle { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; }
+  .role { color: var(--muted); font-size: 0.95rem; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--muted); font-size: 0.9rem; }
+
+  @media (max-width: 560px) {
+    .nav-links { gap: 18px; }
+    .hero { padding: 56px 0 56px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn, .card { transition: none; }
+  }
+</style>
 </head>
 <body>
-    <div class="wrap">
-        <nav aria-label="Main">
-            <a class="logo" href="/">ma3on<span>.</span></a>
-            <div class="nav-links">
-                <a href="#projects">Projects</a>
-                <a href="#team">Team</a>
-                <a href="https://github.com/ma3on">GitHub</a>
-            </div>
-        </nav>
-        <header class="hero">
-            <span class="eyebrow">Games &amp; web projects</span>
-            <h1>Built for the browser. <em>Ready to play.</em></h1>
-            <p class="lede">ma3on is a small group making free browser games and web projects. No downloads, no sign-ups, just open a link and go.</p>
-            <div class="btn-row">
-                <a class="btn btn-primary" href="#projects">View projects</a>
-                <a class="btn btn-ghost" href="#team">Meet the team</a>
-            </div>
-        </header>
-        <section id="projects">
-            <div class="section-head">
-                <h2>Projects</h2>
-                <span class="section-sub">Things we've built</span>
-            </div>
-            <div class="grid">
-                <a class="card" href="https://m-30n.github.io/">
-                    <span class="tag">Games</span>
-                    <h3>Football Games Portal</h3>
-                    <p>A collection of football games you can play right in your browser, including Retro Bowl, Madden and Axis Football League.</p>
-                    <span class="arrow">Open portal &rarr;</span>
-                </a>
-            </div>
-        </section>
-        <section id="team">
-            <div class="section-head">
-                <h2>Team</h2>
-                <span class="section-sub">The people behind it</span>
-            </div>
-            <div class="grid">
-                <a class="card member" href="https://github.com/M-30n">
-                    <div class="avatar" aria-hidden="true">M<img src="https://github.com/M-30n.png?size=128" alt="" onerror="this.remove()"></div>
-                    <div>
-                        <div class="handle">/M-30n</div>
-                        <div class="role">Developer &middot; View GitHub &rarr;</div>
-                    </div>
-                </a>
-            </div>
-        </section>
-    </div>
-    <footer>
-        <div class="wrap">&copy; <span id="year">2026</span> ma3on. All rights reserved.</div>
-    </footer>
-    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="logo" href="/">ma3on<span>.</span></a>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#team">Team</a>
+        <a href="https://github.com/ma3on">GitHub</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <span class="eyebrow">Games &amp; web projects</span>
+      <h1>Built for the browser. <em>Ready to play.</em></h1>
+      <p class="lede">ma3on is a small group making free browser games and web projects. No downloads, no sign-ups, just open a link and go.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#projects">View projects</a>
+        <a class="btn btn-ghost" href="#team">Meet the team</a>
+      </div>
+    </header>
+
+    <section id="projects">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <span class="section-sub">Things we've built</span>
+      </div>
+      <div class="grid">
+        <a class="card" href="https://m-30n.github.io/">
+          <span class="tag">Games</span>
+          <h3>Football Games Portal</h3>
+          <p>A collection of football games you can play right in your browser, including Retro Bowl, Madden and Axis Football League.</p>
+          <span class="arrow">Open portal &rarr;</span>
+        </a>
+        <div class="card placeholder">
+          <h3>More coming soon</h3>
+          <p>New projects will show up here.</p>
+        </div>
+        <!-- Copy a card block above to add another project -->
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="section-head">
+        <h2>Team</h2>
+        <span class="section-sub">The people behind it</span>
+      </div>
+      <div class="grid">
+        <a class="card member" href="https://github.com/M-30n">
+          <div class="avatar" aria-hidden="true">M<img src="https://github.com/M-30n.png?size=128" alt="" onerror="this.remove()"></div>
+          <div>
+            <div class="handle">/M-30n</div>
+            <div class="role">Developer &middot; View GitHub &rarr;</div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="wrap">&copy; <span id="year">2026</span> ma3on. All rights reserved.</div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
