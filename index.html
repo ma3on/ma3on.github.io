@@ -89,6 +89,17 @@
   .handle { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; }
   .role { color: var(--muted); font-size: 0.95rem; }
 
+
+  /* in-page portfolio viewer (URL never changes) */
+  .viewer { position: fixed; inset: 0; z-index: 100; display: none; flex-direction: column; background: var(--bg); }
+  .viewer.open { display: flex; }
+  .viewer-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--line); }
+  .viewer-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+  .viewer-close { font: 700 0.95rem 'DM Sans', sans-serif; color: var(--text); background: none; border: 1px solid var(--line); border-radius: 8px; padding: 9px 16px; cursor: pointer; }
+  .viewer-close:hover { border-color: var(--red); }
+  .viewer iframe { flex: 1; width: 100%; border: 0; background: var(--bg); }
+  body.viewer-open { overflow: hidden; }
+
   footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--muted); font-size: 0.9rem; }
 
   @media (max-width: 560px) {
@@ -148,11 +159,11 @@
         <span class="section-sub">The people behind it</span>
       </div>
       <div class="grid">
-        <a class="card member" href="https://github.com/M-30n">
-          <div class="avatar" aria-hidden="true">f<img src="https://github.com/M-30n.png?size=128" alt="" onerror="this.remove()"></div>
+        <a class="card member" id="open-portfolio" href="m-30n.html">
+          <div class="avatar" aria-hidden="true"><img src="https://github.com/M-30n.png?size=128" alt="" onerror="this.remove()"></div>
           <div>
             <div class="handle">/M-30n</div>
-            <div class="role">Developer &middot; View GitHub &rarr;</div>
+            <div class="role">Developer &middot; View portfolio &rarr;</div>
           </div>
         </a>
       </div>
@@ -162,6 +173,52 @@
   <footer>
     <div class="wrap">&copy; <span id="year">2026</span> ma3on. All rights reserved.</div>
   </footer>
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Portfolio" hidden>
+    <div class="viewer-bar">
+      <span class="viewer-title">/M-30n</span>
+      <button class="viewer-close" id="viewer-close" type="button">&larr; Back to ma3on</button>
+    </div>
+    <iframe id="viewer-frame" title="M-30n portfolio"></iframe>
+  </div>
+
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+  (function () {
+    var viewer = document.getElementById('viewer');
+    var frame = document.getElementById('viewer-frame');
+    var link = document.getElementById('open-portfolio');
+    var closeBtn = document.getElementById('viewer-close');
+
+    function show() {
+      if (!frame.getAttribute('src')) frame.src = link.getAttribute('href');
+      viewer.hidden = false;
+      viewer.classList.add('open');
+      document.body.classList.add('viewer-open');
+      closeBtn.focus();
+    }
+    function hide() {
+      viewer.classList.remove('open');
+      viewer.hidden = true;
+      document.body.classList.remove('viewer-open');
+      link.focus();
+    }
+
+    link.addEventListener('click', function (e) {
+      // let ctrl/cmd/middle-click open the page normally
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      // same URL, just a history entry so the browser Back button closes the viewer
+      history.pushState({ viewer: true }, '', location.href);
+      show();
+    });
+    closeBtn.addEventListener('click', function () {
+      if (history.state && history.state.viewer) history.back(); else hide();
+    });
+    window.addEventListener('popstate', function () { if (viewer.classList.contains('open')) hide(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && viewer.classList.contains('open')) closeBtn.click();
+    });
+  })();
+  </script>
 </body>
 </html>
