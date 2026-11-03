@@ -233,6 +233,11 @@
     });
     // keep the main page and the portfolio viewer in sync
     window.addEventListener('storage', function (e) { if (e.key === KEY) { settings = load(); apply(); } });
+    // re-read the shared settings whenever this page is shown or focused again
+    function resync() { settings = load(); apply(); }
+    window.addEventListener('pageshow', resync);
+    window.addEventListener('focus', resync);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) resync(); });
 
   function openCloaked(url) {
     var w = window.open('about:blank', '_blank');
